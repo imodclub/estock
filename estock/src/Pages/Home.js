@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react'
 import ListUserHome from '../Components/ListUserHome'
+import SignInSide from '../Components/SignInSide'
 
 function Home(props) {
-  const db = props.db
+  const user = props.user
   return (
-      <Fragment>
-          <ListUserHome db={db} />
+    <Fragment>
+      <SignInSide user={user} />
     </Fragment>
-  )
+  );
 }
 
 export default Home

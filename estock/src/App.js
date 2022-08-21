@@ -32,8 +32,8 @@ function App() {
         <Navbar />
       </React.Fragment>
       <Routes>
-        <Route path="/" element={<Home db={db} />} excat></Route>
-        <Route path="usermanage" element={<UserManage />}></Route>
+        <Route path="/" element={<Home user={user} />} excat></Route>
+        <Route path="usermanage" element={<UserManage value={{db:db, user:user}} />}></Route>
         <Route path="material" element={<Material />}></Route>
         <Route path="report" element={<Report />}></Route>
         <Route path="auth" element={<Auth user={user} />}></Route>

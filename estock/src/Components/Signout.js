@@ -34,8 +34,16 @@ const user = props.user
       justifyItems="center"
       alignItems="center"
     >
-      <Card sx={{ minWidth: 600 }}>
+      <Card sx={{ maxWidth: 'auto' }}>
         <CardContent>
+          <Typography
+            variant="h5"
+            align="center"
+            marginBottom="10%"
+            color="text.secondary"
+          >
+            คุณกำลังลงชื่อเช้าใช้
+          </Typography>
           <Typography
             variant="h5"
             align="center"
@@ -44,7 +52,11 @@ const user = props.user
           >
             {user}
           </Typography>
-          <IconButton size="large" sx={{display:'flex', justifyContent:'center'}} onClick={handleSignOut}>
+          <IconButton
+            size="large"
+            sx={{ display: 'flex', justifyContent: 'center' }}
+            onClick={handleSignOut}
+          >
             <LogoutIcon sx={{ fontSize: 40 }} color="primary" />
             <Typography
               variant="h5"

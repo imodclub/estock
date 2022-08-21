@@ -47,6 +47,10 @@ function Navbar() {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ display: 'flex', mx: 0.5, fontSize: 14 }}>
+              <Button
+                sx={{ my: 2, color: 'primary', display: 'block', mr: '10px' }}
+                onClick={HomeLink}
+              >
               <Typography
                 variant="h6"
                 color="primary"
@@ -55,6 +59,7 @@ function Navbar() {
               >
                 E-Stock
               </Typography>
+              </Button>
             </Box>
             <Box
               sx={{
