@@ -10,7 +10,7 @@ function UserManage(props) {
   }
   return (
     <div>
-      <ButtonAddUser />
+      <ButtonAddUser value={{ db:db, user:user }} />
       <ListUsers db={db} />
     </div>
   )
