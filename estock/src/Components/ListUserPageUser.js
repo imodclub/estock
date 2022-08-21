@@ -35,6 +35,7 @@ import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { Container } from '@mui/material';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -193,61 +194,62 @@ const ListUsers = (props) => {
       </Dialog>
 
       <Grid item xs={12}>
-        <TableContainer>
-          <Typography variant="h6" sx={{ p: 2 }}>
-            ข้อมูลผู้ใช้งาน
-          </Typography>
+        <Container>
+          <TableContainer>
+            <Typography variant="h6" sx={{ p: 2 }}>
+              ข้อมูลผู้ใช้งาน
+            </Typography>
 
-          <Table sx={{ minWidth: 650 }}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">ชื่อ</TableCell>
-                <TableCell align="left">นามสกุล</TableCell>
-                <TableCell align="left">Email</TableCell>
-                <TableCell align="left">ภาควิชา</TableCell>
-                <TableCell align="left"></TableCell>
-                <TableCell align="left"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((row) => (
-                <TableRow
-                  key={row.key}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="left">{row.Name}</TableCell>
-                  <TableCell align="left">{row.Lastname}</TableCell>
-                  <TableCell align="left">{row.Email}</TableCell>
-                  <TableCell align="left">{row.Departments}</TableCell>
-                  <TableCell align="left">
-                    <Stack direction="row" spacing={2}>
-                      <Button
-                        variant="outlined"
-                        startIcon={<EditIcon />}
-                        color="warning"
-                        onClick={() => {
-                          handleClickOpen(row.key);
-                        }}
-                      >
-                        แก้ไข
-                      </Button>
-                      <Button
-                        variant="contained"
-                        endIcon={<DeleteIcon />}
-                        color="error"
-                        onClick={() => {
-                          handleClickDelete(row.key);
-                        }}
-                      >
-                        ลบ
-                      </Button>
-                    </Stack>
-                  </TableCell>
+            <Table sx={{ minWidth: 650 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">ชื่อ</TableCell>
+                  <TableCell align="left">นามสกุล</TableCell>
+                  <TableCell align="left">Email</TableCell>
+                  <TableCell align="left">ภาควิชา</TableCell>
+                  <TableCell align="left"></TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {data.map((row) => (
+                  <TableRow
+                    key={row.key}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="left">{row.Name}</TableCell>
+                    <TableCell align="left">{row.Lastname}</TableCell>
+                    <TableCell align="left">{row.Email}</TableCell>
+                    <TableCell align="left">{row.Departments}</TableCell>
+                    <TableCell align="left">
+                      <Stack direction="row" spacing={2}>
+                        <Button
+                          variant="outlined"
+                          startIcon={<EditIcon />}
+                          color="warning"
+                          onClick={() => {
+                            handleClickOpen(row.key);
+                          }}
+                        >
+                          แก้ไข
+                        </Button>
+                        <Button
+                          variant="contained"
+                          endIcon={<DeleteIcon />}
+                          color="error"
+                          onClick={() => {
+                            handleClickDelete(row.key);
+                          }}
+                        >
+                          ลบ
+                        </Button>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
       </Grid>
     </React.Fragment>
   );
