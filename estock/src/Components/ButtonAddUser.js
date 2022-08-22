@@ -9,6 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import Signin from './Signin';
+import AddUserForm from './AddUserForm'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -50,12 +51,12 @@ function ButtonAddUser(props) {
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle>{"เพิ่มข้อมูลสมาชิก"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
+             แบบฟอร์มเพิ่มข้อมูลสมาชิก หรือผู้เบิกวัสดุ หรือเบิกสินค้า ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
             </DialogContentText>
+            {<AddUserForm db={db} />}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Disagree</Button>
