@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { TextField, Box,Button } from '@mui/material'
+import { TextField, Box,Button,Grid } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import Signin from './Signin';
+import { Container } from 'react-bootstrap';
 
 const Div = styled('div')(({ theme }) => ({
   ...theme.typography.button,
@@ -27,9 +28,9 @@ const options = [
 function AddUserForm(props) {
   const db = props.db;
   const [loading, setLoading] = useState(false)
-  //const [error,setError] = (false)
-  const [value, setValue] = React.useState(options[0]);
-  const [inputValue, setInputValue] = React.useState('');
+  const [error,setError] = useState(false)
+  const [value, setValue] = useState(options[0]);
+  const [inputValue, setInputValue] = useState('');
   const [fname, setFname]=useState(null)
   const [name, setName] = useState(null);
   const [lastname, setLastname]=useState(null)
@@ -40,6 +41,17 @@ function AddUserForm(props) {
   const [social, setSocial] = useState(null);
   const textInputDepartments = useRef(null);
 
+  //ref
+  const {
+    inputTextName,
+    inputTextLastname,
+    inputTextDepartments,
+    inputTextTelinternal,
+    inputTextTelPrivate,
+    inputTextEmail,
+    inputTextSocial,
+  } = useRef('');
+
   useEffect(() => {
     const validator =
       name?.trim().length > 0 &&
@@ -47,15 +59,14 @@ function AddUserForm(props) {
       email?.trim().length > 0 &&
       departments?.trim().length > 0 &&
       telinternel;
-    /*if (validator) {
+    if (validator) {
       setError(true)
     } else {
-      //setError(false)
-    }*/
+      setError(false)
+    }
   },
   [fname,name, lastname,email,departments,telinternel])
     
-  const handleChangeFname=(e)=>{setFname(e)}
   const handleChangeName=(e)=>{setName(e)}
   const handleChangeLastname=(e)=>{setLastname(e)}
   const handleChangeEmail = (e) => { setEmail(e) }
@@ -75,92 +86,112 @@ function AddUserForm(props) {
   }
   const handleClear = (e) => {
     e.preventDefault();
-    textInputDepartments.current.value='';
+   
   }
 
     return (
       <Fragment>
         <Box sx={{ mt: 1, display: 'flex' }}>
-          <Autocomplete
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-              setFname(newValue);
-            }}
-            inputValue={inputValue}
-            onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue);
-            }}
-            selectOnFocus
-            id="fnamelist"
-            options={options}
-            sx={{ width: 200, padding: 1 }}
-            renderInput={(params) => (
-              <TextField {...params} label="คำนำหน้า" id="fname" />
-            )}
-          />
-        </Box>
-        <Box sx={{ mt: 1, display: 'flex' }}>
-          <TextField
-            sx={{ maxWidth: '70%', padding: 1 }}
-            label={<Div>ชื่อ</Div>}
-            id="name"
+            <Autocomplete
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+                setFname(newValue);
+              }}
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+              }}
+              selectOnFocus
+              id="fnamelist"
+              options={options}
+              sx={{ width: 200, padding: 1 }}
+              renderInput={(params) => (
+                <TextField {...params} label="คำนำหน้า" id="fname" />
+              )}
+            />
+          </Box>
+          <Box sx={{ mt: 1, display: 'flex' }}>
+            <TextField
+              sx={{ maxWidth: '70%', padding: 1 }}
+              label={<Div>ชื่อ</Div>}
+              id="name"
             onChange={(e) => handleChangeName(e.target.value)}
-          />
-          <TextField
-            sx={{ maxWidth: '70%', padding: 1 }}
-            label={<Div>นามสกุล</Div>}
-            id="lname"
-            onChange={(e) => handleChangeLastname(e.target.value)}
-          />
-        </Box>
-        <Box sx={{ mt: 1, display: 'flex' }}>
-          <TextField
-            sx={{ maxWidth: '55%', padding: 1 }}
-            label={<Div>หน่วยงาน/ภาควิชา</Div>}
-            id="departments"
-            onChange={(e) => handleChangeDepartments(e.target.value)}
-          />
-          <TextField
-            sx={{ maxWidth: '55%', padding: 1 }}
-            label={<Div>โทรศัพท์ภายใน</Div>}
-            id="telinternel"
-            onChange={(e) => handleChangeTelIternal(e.target.value)}
-          />
-        </Box>
-        <Box sx={{ mt: 1, display: 'flex' }}>
-          <TextField
-            sx={{ maxWidth: '100%', padding: 1 }}
-            fullWidth
-            label={<Div>Email</Div>}
-            id="email"
-            onChange={(e) => handleChangeEmail(e.target.value)}
-          />
-        </Box>
-        <Box sx={{ mt: 1, display: 'flex' }}>
-          <TextField
-            sx={{ maxWidth: '100%', padding: 1 }}
-            fullWidth
-            label={<Div>โทรศัพท์ที่ติดต่อได้ (ไม่บังคับ)</Div>}
-            id="telprivate"
-            onChange={(e) => handleChangeTelPrivate(e.target.value)}
-          />
-        </Box>
-        <Box sx={{ mt: 1, display: 'flex' }}>
-          <TextField
-            sx={{ maxWidth: 'auto', padding: 1 }}
-            fullWidth
-            label={
-              <Div>ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)</Div>
-            }
-            id="social"
-            onChange={(e) => handleChangeSocial(e.target.value)}
-          />
-        </Box>
-        <Box sx={{ mt: 1, display: 'flex' }}>
-          <Button onClick={handleClear}>Disagree</Button>
-          <Button onClick={handleSubmit}>Agree</Button>
-        </Box>
+            />
+            <TextField
+              sx={{ maxWidth: '70%', padding: 1 }}
+              label={<Div>นามสกุล</Div>}
+              id="lname"
+              onChange={(e) => handleChangeLastname(e.target.value)}
+            />
+          </Box>
+          <Box sx={{ mt: 1, display: 'flex' }}>
+            <TextField
+              sx={{ maxWidth: '55%', padding: 1 }}
+              label={<Div>หน่วยงาน/ภาควิชา</Div>}
+              id="departments"
+              onChange={(e) => handleChangeDepartments(e.target.value)}
+            />
+            <TextField
+              sx={{ maxWidth: '55%', padding: 1 }}
+              label={<Div>โทรศัพท์ภายใน</Div>}
+              id="telinternel"
+              onChange={(e) => handleChangeTelIternal(e.target.value)}
+            />
+          </Box>
+          <Box sx={{ mt: 1, display: 'flex' }}>
+            <TextField
+              sx={{ maxWidth: '100%', padding: 1 }}
+              fullWidth
+              label={<Div>Email</Div>}
+              id="email"
+              onChange={(e) => handleChangeEmail(e.target.value)}
+            />
+          </Box>
+          <Box sx={{ mt: 1, display: 'flex' }}>
+            <TextField
+              sx={{ maxWidth: '100%', padding: 1 }}
+              fullWidth
+              label={<Div>โทรศัพท์ที่ติดต่อได้ (ไม่บังคับ)</Div>}
+              id="telprivate"
+              onChange={(e) => handleChangeTelPrivate(e.target.value)}
+            />
+          </Box>
+          <Box sx={{ mt: 1, display: 'flex' }}>
+            <TextField
+              sx={{ maxWidth: 'auto', padding: 1 }}
+              fullWidth
+              label={
+                <Div>
+                  ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)
+                </Div>
+              }
+              id="social"
+              onChange={(e) => handleChangeSocial(e.target.value)}
+            />
+          </Box>
+          <Box sx={{ mt: 1 }}>
+            <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
+              <Button
+                sx={{ padding: 1 }}
+                onClick={handleClear}
+                variant="outlined"
+                color="error"
+              >
+                Clear
+              </Button>
+            </Box>
+            <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
+              <Button
+                variant="outlined"
+              sx={{ padding: 1 }}
+              disabled={!error}
+                onClick={handleSubmit}
+              >
+                เพิ่มข้อมูล
+              </Button>
+          </Box>
+          </Box>
       </Fragment>
     );
 }
