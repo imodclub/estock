@@ -50,7 +50,7 @@ function AddUserForm(props) {
     inputTextTelPrivate,
     inputTextEmail,
     inputTextSocial,
-  } = useRef('');
+  } = useRef(null);
 
   useEffect(() => {
     const validator =
@@ -86,7 +86,7 @@ function AddUserForm(props) {
   }
   const handleClear = (e) => {
     e.preventDefault();
-   
+    inputTextName.current.value=''
   }
 
     return (
@@ -115,7 +115,8 @@ function AddUserForm(props) {
             <TextField
               sx={{ maxWidth: '70%', padding: 1 }}
               label={<Div>ชื่อ</Div>}
-              id="name"
+            id="name"
+            inputRef={inputTextName}
             onChange={(e) => handleChangeName(e.target.value)}
             />
             <TextField
