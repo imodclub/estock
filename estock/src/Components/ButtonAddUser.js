@@ -7,13 +7,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Signin from './Signin';
 import AddUserForm from './AddUserForm'
 
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 
 
 function ButtonAddUser(props) {
@@ -51,17 +54,18 @@ function ButtonAddUser(props) {
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle>{"เพิ่มข้อมูลสมาชิก"}</DialogTitle>
+          <DialogActions>
+          <Button onClick={handleClose} endIcon={<CloseIcon />}></Button>
+          </DialogActions>
+          <DialogTitle>{'เพิ่มข้อมูลสมาชิก'}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-             แบบฟอร์มเพิ่มข้อมูลสมาชิก หรือผู้เบิกวัสดุ หรือเบิกสินค้า ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
+              แบบฟอร์มเพิ่มข้อมูลสมาชิก หรือผู้เบิกวัสดุ หรือเบิกสินค้า
+              ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
+              เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
             </DialogContentText>
             {<AddUserForm db={db} />}
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={handleClose}>Agree</Button>
-          </DialogActions>
         </Dialog>
       </div>
     </Box>
