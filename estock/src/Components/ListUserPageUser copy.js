@@ -23,16 +23,19 @@ import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
-import EditUserForm from './EditUserForm';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -43,7 +46,6 @@ const ListUsers = (props) => {
   const db = props.db
   const [data, setData] = React.useState([]);
   const [singleData, setSingleData] = React.useState(null);
-  const [userID, setUserID] = React.useState(null)
   const [loading, setLoading] = React.useState(null);
   const [dataOnClick, setDataOnClick] = React.useState(null);
   const [getValue, setGetValue] = React.useState(null);
@@ -52,7 +54,6 @@ const ListUsers = (props) => {
   const handleClickOpen = (id) => {
     setOpen(true);
     setSingleData(id);
-    setUserID(id)
   };
 
   const handleClose = () => {
@@ -76,7 +77,34 @@ const ListUsers = (props) => {
   }, []);
   //Read Data to Table list user
 
- 
+  //Edit user from button
+  const EditUser = async () => {
+    setOpen(false);
+    setLoading(true);
+    setDataOnClick(null);
+    var dataID;
+    const checkIdUserFromCollection = await getDocs(
+      collection(db, 'User'),
+      where('id', '==', singleData)
+    );
+    checkIdUserFromCollection.forEach((doc) => {
+      if (doc.id == singleData) {
+        dataID = doc.id;
+      }
+    });
+    try {
+      const userRef = doc(db, 'User', dataID);
+      await updateDoc(userRef, { Name: 'น้องมาร์ช' });
+      setTimeout(() => {
+        window.location.reload();
+        setLoading(false);
+        setSingleData(null);
+        dataID = null;
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   //Delete User
   const handleClickDelete = async (id) => {
@@ -110,24 +138,48 @@ const ListUsers = (props) => {
   return (
     <React.Fragment>
       <Dialog
+        fullScreen
         open={open}
-        TransitionComponent={Transition}
-        keepMounted
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
+        TransitionComponent={Transition}
       >
-        <DialogActions>
-          <Button onClick={handleClose} endIcon={<CloseIcon />}></Button>
-        </DialogActions>
-        <DialogTitle>{'แก้ไขข้อมูลสมาชิก'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            แบบฟอร์มแก้ไขข้อมูลสมาชิก หรือผู้เบิกวัสดุ หรือเบิกสินค้า
-            ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
-            เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
-          </DialogContentText>
-          {<EditUserForm value={{ db: db, userID: userID }} />}
-        </DialogContent>
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              แก้ไขข้อมูล
+            </Typography>
+            <Button autoFocus color="inherit" onClick={EditUser}>
+              บันทึกข้อมูลแก้ไข
+            </Button>
+          </Toolbar>
+        </AppBar>
+        
+        <Box
+          component="form"
+          sx={{ '& .MuiTextField-root': { m: 1, width: '30ch' } }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField required id="outlined-required" label="ระบุชื่อ" />
+          <TextField required id="outlined-required" label="นามสกุล" />
+        </Box>
+        <Box
+          component="form"
+          sx={{ '& .MuiTextField-root': { m: 1, width: '30ch' } }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField required id="outlined-required" label="ภาควิชา" />
+          <TextField required id="outlined-required" label="ตำแหน่ง" />
+        </Box>
       </Dialog>
 
       <Grid item xs={12}>
@@ -140,7 +192,6 @@ const ListUsers = (props) => {
             <Table sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">คำนำหน้า</TableCell>
                   <TableCell align="left">ชื่อ</TableCell>
                   <TableCell align="left">นามสกุล</TableCell>
                   <TableCell align="left">Email</TableCell>
@@ -154,7 +205,6 @@ const ListUsers = (props) => {
                     key={row.key}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell align="left">{row.Fname}</TableCell>
                     <TableCell align="left">{row.Name}</TableCell>
                     <TableCell align="left">{row.Lastname}</TableCell>
                     <TableCell align="left">{row.Email}</TableCell>
