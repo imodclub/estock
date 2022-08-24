@@ -161,18 +161,7 @@ const ListUsers = (props) => {
             </Button>
           </Toolbar>
         </AppBar>
-        <List>
-          <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItem>
-        </List>
+        
         <Box
           component="form"
           sx={{ '& .MuiTextField-root': { m: 1, width: '30ch' } }}
