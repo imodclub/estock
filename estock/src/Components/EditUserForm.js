@@ -3,7 +3,7 @@ import { TextField, Box, Button, Typography,Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import Signin from './Signin';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDoc, getDocs, where } from 'firebase/firestore';
 
 const Div = styled('div')(({ theme }) => ({
   ...theme.typography.button,
@@ -49,7 +49,20 @@ function EditUserForm(props) {
   const inputTextTelPrivate = useRef(null);
   const inputTextSocial = useRef(null);
 
-  useEffect(() => {
+    useEffect(() => {
+        async function readData() {
+            const checkIdUserFromColletion = await getDocs(collection(db, 'User'), where('id', '=='.userID));
+            checkIdUserFromColletion.forEach((doc) => {
+                if (doc.id == userID) {
+                    console.log(doc.id, " => ", doc.data().Name);
+                    inputTextName.current.value = doc.data().Name
+                }
+            })
+        }
+        readData();
+    },[inputTextName]);
+  
+    useEffect(() => {
     const validator =
       name?.trim().length > 0 &&
       lastname?.trim().length > 0 &&
@@ -62,6 +75,7 @@ function EditUserForm(props) {
       setError(false);
     }
   }, [fname, name, lastname, email, departments, telinternel]);
+    
 
   const handleChangeName = (e) => {
     setName(e);
