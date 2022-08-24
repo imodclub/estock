@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { TextField, Box,Button,Grid } from '@mui/material'
+import { TextField, Box,Button } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import Signin from './Signin';
-import { collection, addDoc, Timestamp, serverTimestamp } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const Div = styled('div')(({ theme }) => ({
   ...theme.typography.button,
@@ -39,7 +39,6 @@ function AddUserForm(props) {
   const [telinternel, setTelInternal]=useState(null)
   const [telPrivate, setTelPrivate]=useState(null)
   const [social, setSocial] = useState(null);
-  const textInputDepartments = useRef(null);
 
   //ref
   const inputTextName = useRef(null);
@@ -196,21 +195,21 @@ function AddUserForm(props) {
           <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
             <Button
               sx={{ padding: 1 }}
-              onClick={handleClear}
+              disabled={!error}
+              onClick={handleSubmit}
               variant="outlined"
-              color="error"
             >
-              Clear
+              เพิ่มข้อมูล
             </Button>
           </Box>
           <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
             <Button
               variant="outlined"
               sx={{ padding: 1 }}
-              disabled={!error}
-              onClick={handleSubmit}
+              color="error"
+              onClick={handleClear}
             >
-              เพิ่มข้อมูล
+              Clear form
             </Button>
           </Box>
         </Box>
