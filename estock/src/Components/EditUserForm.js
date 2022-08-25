@@ -26,19 +26,12 @@ const options = [
 ];
 
 function EditUserForm(props) {
-  const { db, userID } = props.value;
+  const { db, userID,name } = props.value;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = useState('');
-  const [fname, setFname] = useState(null);
-  const [name, setName] = useState(null);
-  const [lastname, setLastname] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [departments, setDepartments] = useState(null);
-  const [telinternel, setTelInternal] = useState(null);
-  const [telPrivate, setTelPrivate] = useState(null);
-  const [social, setSocial] = useState(null);
+  
 
   //ref
   const inputTextName = useRef(null);
@@ -49,20 +42,10 @@ function EditUserForm(props) {
   const inputTextTelPrivate = useRef(null);
   const inputTextSocial = useRef(null);
 
-    useEffect(() => {
-        async function readData() {
-            const checkIdUserFromColletion = await getDocs(collection(db, 'User'), where('id', '=='.userID));
-            checkIdUserFromColletion.forEach((doc) => {
-                if (doc.id == userID) {
-                    console.log(doc.id, " => ", doc.data().Name);
-                    inputTextName.current.value = doc.data().Name
-                }
-            })
-        }
-        readData();
-    },[inputTextName]);
-  
-    useEffect(() => {
+  console.log(name, " Edit user form")
+
+  /**ตรวจสอบข้อความใน Text filed มีค่าว่างหรือไม่ */
+  /*useEffect(() => {
     const validator =
       name?.trim().length > 0 &&
       lastname?.trim().length > 0 &&
@@ -75,9 +58,9 @@ function EditUserForm(props) {
       setError(false);
     }
   }, [fname, name, lastname, email, departments, telinternel]);
-    
+  /**จบการตรวจสอบข้อความใน Text filed มีค่าว่างหรือไม่ */
 
-  const handleChangeName = (e) => {
+  /*const handleChangeName = (e) => {
     setName(e);
   };
   const handleChangeLastname = (e) => {
@@ -97,9 +80,9 @@ function EditUserForm(props) {
   };
   const handleChangeSocial = (e) => {
     setSocial(e);
-  };
+  };*/
 
-  const handleSubmit = async (e) => {
+  /*const handleSubmit = async (e) => {
     e.preventDefault();
     const docRef = await addDoc(collection(db, 'User'), {
       Fname: fname,
@@ -120,7 +103,7 @@ function EditUserForm(props) {
         console.log('ไม่สามารถเชื่อมต่อฐานข้อมูลได้');
         console.log(error);
       });
-  };
+  };*/
 
   const handleClear = (e) => {
     e.preventDefault();
@@ -136,9 +119,7 @@ function EditUserForm(props) {
   return (
     <Fragment>
       <Box sx={{ mt: 1, display: 'flex' }}>
-              <Paper variant='outlined'>
-                  {<Div>UID คือ {userID}</Div>}
-        </Paper>
+        <Paper variant="outlined">{<Div>UID คือ {userID}</Div>}</Paper>
       </Box>
 
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -146,7 +127,7 @@ function EditUserForm(props) {
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
-            setFname(newValue);
+            //setFname(newValue);
           }}
           inputValue={inputValue}
           onInputChange={(event, newInputValue) => {
@@ -167,14 +148,15 @@ function EditUserForm(props) {
           label={<Div>ชื่อ</Div>}
           id="name"
           inputRef={inputTextName}
-          onChange={(e) => handleChangeName(e.target.value)}
+          
+          //onChange={(e) => handleChangeName(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
           label={<Div>นามสกุล</Div>}
           id="lname"
-          inputRef={inputTextLastname}
-          onChange={(e) => handleChangeLastname(e.target.value)}
+          //inputRef={inputTextLastname}
+          //onChange={(e) => handleChangeLastname(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -182,15 +164,15 @@ function EditUserForm(props) {
           sx={{ maxWidth: '55%', padding: 1 }}
           label={<Div>หน่วยงาน/ภาควิชา</Div>}
           id="departments"
-          inputRef={inputTextDepartments}
-          onChange={(e) => handleChangeDepartments(e.target.value)}
+          //inputRef={inputTextDepartments}
+          //onChange={(e) => handleChangeDepartments(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
           label={<Div>โทรศัพท์ภายใน</Div>}
           id="telinternel"
-          inputRef={inputTextTelInternal}
-          onChange={(e) => handleChangeTelIternal(e.target.value)}
+          //inputRef={inputTextTelInternal}
+          //onChange={(e) => handleChangeTelIternal(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -199,8 +181,8 @@ function EditUserForm(props) {
           fullWidth
           label={<Div>Email</Div>}
           id="email"
-          inputRef={inputTextEmail}
-          onChange={(e) => handleChangeEmail(e.target.value)}
+          //inputRef={inputTextEmail}
+          //onChange={(e) => handleChangeEmail(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -209,8 +191,8 @@ function EditUserForm(props) {
           fullWidth
           label={<Div>โทรศัพท์ที่ติดต่อได้ (ไม่บังคับ)</Div>}
           id="telprivate"
-          inputRef={inputTextTelPrivate}
-          onChange={(e) => handleChangeTelPrivate(e.target.value)}
+          //inputRef={inputTextTelPrivate}
+          //onChange={(e) => handleChangeTelPrivate(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -221,22 +203,21 @@ function EditUserForm(props) {
             <Div>ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)</Div>
           }
           id="social"
-          inputRef={inputTextSocial}
-          onChange={(e) => handleChangeSocial(e.target.value)}
+          //inputRef={inputTextSocial}
+          //onChange={(e) => handleChangeSocial(e.target.value)}
         />
-      </Box>
+        </Box>*
       <Box sx={{ mt: 1 }}>
         <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
           <Button
             sx={{ padding: 1 }}
             disabled={!error}
-            onClick={handleSubmit}
+            //onClick={handleSubmit}
             variant="outlined"
           >
             แก้ไขข้อมูล
           </Button>
         </Box>
-        
       </Box>
     </Fragment>
   );

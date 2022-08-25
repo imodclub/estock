@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect,useState} from 'react';
 
 //service and database
 import Firebase from '../Service/Firebase';
@@ -40,19 +40,49 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ListUsers = (props) => {
-  const db = props.db
+  const db = props.db;
   const [data, setData] = React.useState([]);
   const [singleData, setSingleData] = React.useState(null);
-  const [userID, setUserID] = React.useState(null)
+  const [userID, setUserID] = React.useState(null);
   const [loading, setLoading] = React.useState(null);
   const [dataOnClick, setDataOnClick] = React.useState(null);
   const [getValue, setGetValue] = React.useState(null);
   const [open, setOpen] = React.useState(false);
 
+  const [fname, setFname] = useState(null);
+  const [name, setName] = useState(null);
+  const [lastname, setLastname] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [departments, setDepartments] = useState(null);
+  const [telinternel, setTelInternal] = useState(null);
+  const [telPrivate, setTelPrivate] = useState(null);
+  const [social, setSocial] = useState(null);
+  
+
   const handleClickOpen = (id) => {
     setOpen(true);
     setSingleData(id);
-    setUserID(id)
+    setUserID(id);
+
+    /**อ่านข้อมูลเพื่อเตรียมลงแบบฟอร์ม */
+    
+      async function readData() {
+        const checkIdUserFromColletion = await getDocs(
+          collection(db, 'User'),
+          where('id', '=='.userID)
+        );
+        checkIdUserFromColletion.forEach((doc) => {
+          if (doc.id == userID) {
+            console.log(doc.id, ' => ', doc.data().Name);
+            setName(doc.data().Name);
+            //setLastname(doc.data().Lastname);
+            //inputTextName.current.value = doc.data().Name;
+          }
+        });
+      }
+        readData();
+    
+    /**จบการอ่านข้อมูลลงแบบฟอร์ม */
   };
 
   const handleClose = () => {
@@ -76,7 +106,9 @@ const ListUsers = (props) => {
   }, []);
   //Read Data to Table list user
 
- 
+  /*Edit user นำข้อมูลลงในฟอร์ม */
+
+  /*จบ Edit user นำข้อมูลลงในฟอร์ม */
 
   //Delete User
   const handleClickDelete = async (id) => {
@@ -126,7 +158,7 @@ const ListUsers = (props) => {
             ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
             เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
           </DialogContentText>
-          {<EditUserForm value={{ db: db, userID: userID }} />}
+          {<EditUserForm value={{ db: db, userID: userID,name:name }} />}
         </DialogContent>
       </Dialog>
 
