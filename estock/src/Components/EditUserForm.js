@@ -26,7 +26,7 @@ const options = [
 ];
 
 function EditUserForm(props) {
-  const { db, userID,name } = props.value;
+  const { db, userID,name,lastname,email,departments,telInternal } = props.value;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState(options[0]);
@@ -120,8 +120,11 @@ function EditUserForm(props) {
     <Fragment>
       <Box sx={{ mt: 1, display: 'flex' }}>
         <Paper variant="outlined">{<Div>UID คือ {userID}</Div>}</Paper>
+        <Paper variant="outlined">{<Div>Name คือ {name}</Div>}</Paper>
+        <Paper variant="outlined">{<Div>นามสกุล คือ {lastname}</Div>}</Paper>
+        <Paper variant="outlined">{<Div>อีเมล คือ {email}</Div>}</Paper>
+        <Paper variant="outlined">{<Div>แผนก คือ {departments}</Div>}</Paper>
       </Box>
-
       <Box sx={{ mt: 1, display: 'flex' }}>
         <Autocomplete
           value={value}
@@ -148,7 +151,6 @@ function EditUserForm(props) {
           label={<Div>ชื่อ</Div>}
           id="name"
           inputRef={inputTextName}
-          
           //onChange={(e) => handleChangeName(e.target.value)}
         />
         <TextField
@@ -206,7 +208,8 @@ function EditUserForm(props) {
           //inputRef={inputTextSocial}
           //onChange={(e) => handleChangeSocial(e.target.value)}
         />
-        </Box>*
+      </Box>
+      *
       <Box sx={{ mt: 1 }}>
         <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
           <Button

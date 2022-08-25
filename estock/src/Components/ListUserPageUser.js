@@ -57,33 +57,24 @@ const ListUsers = (props) => {
   const [telinternel, setTelInternal] = useState(null);
   const [telPrivate, setTelPrivate] = useState(null);
   const [social, setSocial] = useState(null);
+
   
 
-  const handleClickOpen = (id) => {
-    setOpen(true);
-    setSingleData(id);
+  const handleClickOpen = (id,Name,Lastname,Email,Departments,Telinternal) => { 
+     setOpen(true);
     setUserID(id);
-
-    /**อ่านข้อมูลเพื่อเตรียมลงแบบฟอร์ม */
+    setName(Name);
+    setName(Lastname);
+    setName(Email);
+    setName(Departments);
+    setName(Telinternal);
     
-      async function readData() {
-        const checkIdUserFromColletion = await getDocs(
-          collection(db, 'User'),
-          where('id', '=='.userID)
-        );
-        checkIdUserFromColletion.forEach((doc) => {
-          if (doc.id == userID) {
-            console.log(doc.id, ' => ', doc.data().Name);
-            setName(doc.data().Name);
-            //setLastname(doc.data().Lastname);
-            //inputTextName.current.value = doc.data().Name;
-          }
-        });
-      }
-        readData();
+   
+    setSingleData(id);
     
-    /**จบการอ่านข้อมูลลงแบบฟอร์ม */
   };
+
+
 
   const handleClose = () => {
     setOpen(false);
@@ -158,7 +149,7 @@ const ListUsers = (props) => {
             ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
             เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
           </DialogContentText>
-          {<EditUserForm value={{ db: db, userID: userID,name:name }} />}
+          {<EditUserForm value={{ db: db, userID: userID, name: name,lastname:lastname,email,email,departments:departments,telinternel:telinternel }} />}
         </DialogContent>
       </Dialog>
 
@@ -198,7 +189,8 @@ const ListUsers = (props) => {
                           startIcon={<EditIcon />}
                           color="warning"
                           onClick={() => {
-                            handleClickOpen(row.key);
+                            handleClickOpen(row.key, row.Name,row.Lastname,row.Email,row.Departments,row.telOfUBU);
+                            
                           }}
                         >
                           แก้ไข
