@@ -33,16 +33,7 @@ function EditUserForm(props) {
   const [inputValue, setInputValue] = useState('');
   
 
-  //ref
-  const inputTextName = useRef(null);
-  const inputTextLastname = useRef(null);
-  const inputTextEmail = useRef(null);
-  const inputTextDepartments = useRef(null);
-  const inputTextTelOfUBU = useRef(null);
-  const inputTextTelPrivate = useRef(null);
-  const inputTextSocial = useRef(null);
-
-  
+ 
   
   
 
@@ -107,16 +98,7 @@ function EditUserForm(props) {
       });
   };*/
 
-  const handleClear = (e) => {
-    e.preventDefault();
-    inputTextName.current.value = '';
-    inputTextLastname.current.value = '';
-    inputTextEmail.current.value = '';
-    inputTextDepartments.current.value = '';
-    inputTextTelOfUBU.current.value = '';
-    inputTextTelPrivate.current.value = '';
-    inputTextSocial.current.value = '';
-  };
+  
 
   return (
     <Fragment>
@@ -144,28 +126,33 @@ function EditUserForm(props) {
       <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
-          label={<Div>{name}</Div>}
+          label={<Div>ชื่อ</Div>}
           id="name"
+          value={`${name}`}
           onChange={(e) => handleChangeName(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
-          label={<Div>{lastname}</Div>}
+          label={<Div>นามสกุล</Div>}
           id="lname"
+          value={`${lastname}`}
           //onChange={(e) => handleChangeLastname(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
-          label={<Div>{departments}</Div>}
+          fullWidth
+          label={<Div>แผนก / ฝ่าย</Div>}
           id="departments"
+          value={`${departments}`}
           //onChange={(e) => handleChangeDepartments(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
           label={<Div>เบอร์โทรภายใน</Div>}
           id="telOfUBU"
+          value={`${TelOfUBU}`}
           //onChange={(e) => handleChangeTelIternal(e.target.value)}
         />
       </Box>
@@ -173,8 +160,9 @@ function EditUserForm(props) {
         <TextField
           sx={{ maxWidth: '100%', padding: 1 }}
           fullWidth
-          label={<Div>{email}</Div>}
+          label={<Div>EMAIL</Div>}
           id="email"
+          value={`${email}`}
           //onChange={(e) => handleChangeEmail(e.target.value)}
         />
       </Box>
@@ -184,6 +172,7 @@ function EditUserForm(props) {
           fullWidth
           label={<Div>โทรศัพท์ที่ติดต่อได้ (ไม่บังคับ)</Div>}
           id="telprivate"
+          value={`${TelPrivate}`}
           //onChange={(e) => handleChangeTelPrivate(e.target.value)}
         />
       </Box>
@@ -193,10 +182,11 @@ function EditUserForm(props) {
           fullWidth
           label={
             <Div>
-              ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ) : {Social}
+              ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)
             </Div>
           }
           id="social"
+          value={`${Social}`}
           //onChange={(e) => handleChangeSocial(e.target.value)}
         />
       </Box>
