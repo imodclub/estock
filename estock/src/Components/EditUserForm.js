@@ -26,7 +26,7 @@ const options = [
 ];
 
 function EditUserForm(props) {
-  const { db, userID,name,lastname,email,departments,telinternal } = props.value;
+  const { db, userID,name,lastname,email,departments,TelOfUBU,TelPrivate,Social } = props.value;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState(options[0]);
@@ -38,11 +38,13 @@ function EditUserForm(props) {
   const inputTextLastname = useRef(null);
   const inputTextEmail = useRef(null);
   const inputTextDepartments = useRef(null);
-  const inputTextTelInternal = useRef(null);
+  const inputTextTelOfUBU = useRef(null);
   const inputTextTelPrivate = useRef(null);
   const inputTextSocial = useRef(null);
 
-  console.log(name, " Edit user form")
+  
+  
+  
 
   /**ตรวจสอบข้อความใน Text filed มีค่าว่างหรือไม่ */
   /*useEffect(() => {
@@ -60,10 +62,10 @@ function EditUserForm(props) {
   }, [fname, name, lastname, email, departments, telinternel]);
   /**จบการตรวจสอบข้อความใน Text filed มีค่าว่างหรือไม่ */
 
-  /*const handleChangeName = (e) => {
-    setName(e);
+  const handleChangeName = (e) => {
+    //setName(e);
   };
-  const handleChangeLastname = (e) => {
+  /*const handleChangeLastname = (e) => {
     setLastname(e);
   };
   const handleChangeEmail = (e) => {
@@ -73,7 +75,7 @@ function EditUserForm(props) {
     setDepartments(e);
   };
   const handleChangeTelIternal = (e) => {
-    setTelInternal(e);
+    setTelOfUBU(e);
   };
   const handleChangeTelPrivate = (e) => {
     setTelPrivate(e);
@@ -111,27 +113,14 @@ function EditUserForm(props) {
     inputTextLastname.current.value = '';
     inputTextEmail.current.value = '';
     inputTextDepartments.current.value = '';
-    inputTextTelInternal.current.value = '';
+    inputTextTelOfUBU.current.value = '';
     inputTextTelPrivate.current.value = '';
     inputTextSocial.current.value = '';
   };
 
   return (
     <Fragment>
-      <Box sx={{ mt: 1, display: 'flex' }}>
-        <Paper variant="outlined">{<Div>UID คือ {userID}</Div>}</Paper>
-        <Paper variant="outlined">{<Div>Name คือ {name}</Div>}</Paper>
-        <Paper variant="outlined">{<Div>นามสกุล คือ {lastname}</Div>}</Paper>
-        
-      </Box>
-      <Box sx={{ mt: 1, display: 'flex' }}>
-        
-        <Paper variant="outlined">{<Div>อีเมล คือ {email}</Div>}</Paper>
-        <Paper variant="outlined">{<Div>แผนก คือ {departments}</Div>}</Paper>
-        <Paper variant="outlined">
-          {<Div>เบอร์โทรภายใน คือ {telinternal}</Div>}
-        </Paper>
-      </Box>
+      
       <Box sx={{ mt: 1, display: 'flex' }}>
         <Autocomplete
           value={value}
@@ -155,32 +144,28 @@ function EditUserForm(props) {
       <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
-          label={<Div>ชื่อ</Div>}
+          label={<Div>{name}</Div>}
           id="name"
-          inputRef={inputTextName}
-          //onChange={(e) => handleChangeName(e.target.value)}
+          onChange={(e) => handleChangeName(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
-          label={<Div>นามสกุล</Div>}
+          label={<Div>{lastname}</Div>}
           id="lname"
-          //inputRef={inputTextLastname}
           //onChange={(e) => handleChangeLastname(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
-          label={<Div>หน่วยงาน/ภาควิชา</Div>}
+          label={<Div>{departments}</Div>}
           id="departments"
-          //inputRef={inputTextDepartments}
           //onChange={(e) => handleChangeDepartments(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
-          label={<Div>โทรศัพท์ภายใน</Div>}
-          id="telinternel"
-          //inputRef={inputTextTelInternal}
+          label={<Div>เบอร์โทรภายใน</Div>}
+          id="telOfUBU"
           //onChange={(e) => handleChangeTelIternal(e.target.value)}
         />
       </Box>
@@ -188,9 +173,8 @@ function EditUserForm(props) {
         <TextField
           sx={{ maxWidth: '100%', padding: 1 }}
           fullWidth
-          label={<Div>Email</Div>}
+          label={<Div>{email}</Div>}
           id="email"
-          //inputRef={inputTextEmail}
           //onChange={(e) => handleChangeEmail(e.target.value)}
         />
       </Box>
@@ -200,7 +184,6 @@ function EditUserForm(props) {
           fullWidth
           label={<Div>โทรศัพท์ที่ติดต่อได้ (ไม่บังคับ)</Div>}
           id="telprivate"
-          //inputRef={inputTextTelPrivate}
           //onChange={(e) => handleChangeTelPrivate(e.target.value)}
         />
       </Box>
@@ -209,10 +192,11 @@ function EditUserForm(props) {
           sx={{ maxWidth: 'auto', padding: 1 }}
           fullWidth
           label={
-            <Div>ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)</Div>
+            <Div>
+              ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ) : {Social}
+            </Div>
           }
           id="social"
-          //inputRef={inputTextSocial}
           //onChange={(e) => handleChangeSocial(e.target.value)}
         />
       </Box>

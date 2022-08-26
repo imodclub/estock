@@ -54,20 +54,22 @@ const ListUsers = (props) => {
   const [lastname, setLastname] = useState(null);
   const [email, setEmail] = useState(null);
   const [departments, setDepartments] = useState(null);
-  const [telinternal, setTelInternal] = useState(null);
+  const [TelOfUBU, setTelOfUBU] = useState(null);
   const [telPrivate, setTelPrivate] = useState(null);
   const [social, setSocial] = useState(null);
 
   
 
-  const handleClickOpen = ( id, Name, Lastname, Email, Departments, TelInternal ) => { 
+  const handleClickOpen = ( id, Name, Lastname, Email, Departments, TelOfUBU,TelPrivate,Social ) => { 
     setOpen(true);
     setUserID(id);
     setName(Name);
     setLastname(Lastname);
     setEmail(Email);
     setDepartments(Departments);
-    setTelInternal(TelInternal);
+    setTelOfUBU(TelOfUBU);
+    setTelPrivate(TelPrivate);
+    setSocial(Social)
     
     
    
@@ -150,7 +152,7 @@ const ListUsers = (props) => {
             ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
             เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
           </DialogContentText>
-          {<EditUserForm value={{ db: db, userID: userID, name: name, lastname:lastname, email:email, departments:departments, telinternal:telinternal }} />}
+          {<EditUserForm value={{ db: db, userID: userID, name: name, lastname:lastname, email:email, departments:departments, TelOfUBU:TelOfUBU,TelPrivate:telPrivate,Social:social }} />}
         </DialogContent>
       </Dialog>
 
@@ -190,7 +192,7 @@ const ListUsers = (props) => {
                           startIcon={<EditIcon />}
                           color="warning"
                           onClick={() => {
-                            handleClickOpen( row.key, row.Name, row.Lastname, row.Email,row.Departments,row.TelOfUBU );
+                            handleClickOpen( row.key, row.Name, row.Lastname, row.Email,row.Departments,row.TelOfUBU,row.TelPrivate,row.Social );
                             
                           }}
                         >
