@@ -54,7 +54,7 @@ const ListUsers = (props) => {
   const [lastname, setLastname] = useState(null);
   const [email, setEmail] = useState(null);
   const [departments, setDepartments] = useState(null);
-  const [telinternel, setTelInternal] = useState(null);
+  const [telinternal, setTelInternal] = useState(null);
   const [telPrivate, setTelPrivate] = useState(null);
   const [social, setSocial] = useState(null);
 
@@ -150,7 +150,7 @@ const ListUsers = (props) => {
             ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
             เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
           </DialogContentText>
-          {<EditUserForm value={{ db: db, userID: userID, name: name, lastname:lastname, email:email, departments:departments, telinternel:telinternel }} />}
+          {<EditUserForm value={{ db: db, userID: userID, name: name, lastname:lastname, email:email, departments:departments, telinternal:telinternal }} />}
         </DialogContent>
       </Dialog>
 

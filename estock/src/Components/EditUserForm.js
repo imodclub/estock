@@ -26,7 +26,7 @@ const options = [
 ];
 
 function EditUserForm(props) {
-  const { db, userID,name,lastname,email,departments,telInternal } = props.value;
+  const { db, userID,name,lastname,email,departments,telinternal } = props.value;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [value, setValue] = useState(options[0]);
@@ -129,7 +129,7 @@ function EditUserForm(props) {
         <Paper variant="outlined">{<Div>อีเมล คือ {email}</Div>}</Paper>
         <Paper variant="outlined">{<Div>แผนก คือ {departments}</Div>}</Paper>
         <Paper variant="outlined">
-          {<Div>เบอร์โทรภายใน คือ {telInternal}</Div>}
+          {<Div>เบอร์โทรภายใน คือ {telinternal}</Div>}
         </Paper>
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
