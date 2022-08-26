@@ -122,8 +122,15 @@ function EditUserForm(props) {
         <Paper variant="outlined">{<Div>UID คือ {userID}</Div>}</Paper>
         <Paper variant="outlined">{<Div>Name คือ {name}</Div>}</Paper>
         <Paper variant="outlined">{<Div>นามสกุล คือ {lastname}</Div>}</Paper>
+        
+      </Box>
+      <Box sx={{ mt: 1, display: 'flex' }}>
+        
         <Paper variant="outlined">{<Div>อีเมล คือ {email}</Div>}</Paper>
         <Paper variant="outlined">{<Div>แผนก คือ {departments}</Div>}</Paper>
+        <Paper variant="outlined">
+          {<Div>เบอร์โทรภายใน คือ {telInternal}</Div>}
+        </Paper>
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
         <Autocomplete

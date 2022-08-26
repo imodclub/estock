@@ -60,14 +60,15 @@ const ListUsers = (props) => {
 
   
 
-  const handleClickOpen = (id,Name,Lastname,Email,Departments,Telinternal) => { 
-     setOpen(true);
+  const handleClickOpen = ( id, Name, Lastname, Email, Departments, TelInternal ) => { 
+    setOpen(true);
     setUserID(id);
     setName(Name);
-    setName(Lastname);
-    setName(Email);
-    setName(Departments);
-    setName(Telinternal);
+    setLastname(Lastname);
+    setEmail(Email);
+    setDepartments(Departments);
+    setTelInternal(TelInternal);
+    
     
    
     setSingleData(id);
@@ -149,7 +150,7 @@ const ListUsers = (props) => {
             ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
             เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
           </DialogContentText>
-          {<EditUserForm value={{ db: db, userID: userID, name: name,lastname:lastname,email,email,departments:departments,telinternel:telinternel }} />}
+          {<EditUserForm value={{ db: db, userID: userID, name: name, lastname:lastname, email:email, departments:departments, telinternel:telinternel }} />}
         </DialogContent>
       </Dialog>
 
@@ -189,7 +190,7 @@ const ListUsers = (props) => {
                           startIcon={<EditIcon />}
                           color="warning"
                           onClick={() => {
-                            handleClickOpen(row.key, row.Name,row.Lastname,row.Email,row.Departments,row.telOfUBU);
+                            handleClickOpen( row.key, row.Name, row.Lastname, row.Email,row.Departments,row.TelOfUBU );
                             
                           }}
                         >
