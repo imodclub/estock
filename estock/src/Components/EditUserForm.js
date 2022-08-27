@@ -3,7 +3,7 @@ import { TextField, Box, Button, Typography,Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import Signin from './Signin';
-import { collection, addDoc, serverTimestamp, getDoc, getDocs, where } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDoc, getDocs, where, updateDoc,doc } from 'firebase/firestore';
 
 const Div = styled('div')(({ theme }) => ({
   ...theme.typography.button,
@@ -31,63 +31,73 @@ function EditUserForm(props) {
   const [error, setError] = useState(false);
   const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = useState('');
+
+  const [fname, setFname] = useState(null)
+  const [updateName, setUpdateName] = useState(null)
+  const [updateLastname, setUpdateLastname] = useState(null)
+  const [updateEmail, setUpdateEmail] = useState(null)
+  const [updateDepartments, setUpdateDepartments] = useState(null)
+  const [updateTelOfUBU, setUpdateTelOfUBU] = useState(null)
+  const [updateTelPrivate, setUpdateTelPrivate] = useState(null)
+  const [updateSocial, setUpdateSocial] = useState(null);
   
 
- 
+
   
   
 
   /**ตรวจสอบข้อความใน Text filed มีค่าว่างหรือไม่ */
-  /*useEffect(() => {
+  useEffect(() => {
     const validator =
-      name?.trim().length > 0 &&
-      lastname?.trim().length > 0 &&
-      email?.trim().length > 0 &&
-      departments?.trim().length > 0 &&
-      telinternel;
+      updateName?.trim().length > 0 &&
+      updateLastname?.trim().length > 0 &&
+      updateEmail?.trim().length > 0 &&
+      updateDepartments?.trim().length > 0 &&
+      updateTelOfUBU;
     if (validator) {
       setError(true);
     } else {
       setError(false);
     }
-  }, [fname, name, lastname, email, departments, telinternel]);
+  }, [updateName, updateLastname, updateEmail, updateDepartments, updateTelOfUBU]);
   /**จบการตรวจสอบข้อความใน Text filed มีค่าว่างหรือไม่ */
 
   const handleChangeName = (e) => {
-    //setName(e);
+    setUpdateName(e);
   };
-  /*const handleChangeLastname = (e) => {
-    setLastname(e);
+  const handleChangeLastname = (e) => {
+    setUpdateLastname(e);
   };
   const handleChangeEmail = (e) => {
-    setEmail(e);
+    setUpdateEmail(e);
   };
   const handleChangeDepartments = (e) => {
-    setDepartments(e);
+    setUpdateDepartments(e);
   };
   const handleChangeTelIternal = (e) => {
-    setTelOfUBU(e);
+    setUpdateTelOfUBU(e);
   };
   const handleChangeTelPrivate = (e) => {
-    setTelPrivate(e);
+    setUpdateTelPrivate(e);
   };
   const handleChangeSocial = (e) => {
-    setSocial(e);
-  };*/
+    setUpdateSocial(e);
+  };
 
-  /*const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const docRef = await addDoc(collection(db, 'User'), {
-      Fname: fname,
-      Name: name,
-      Lastname: lastname,
-      Email: email,
-      Departments: departments,
-      TelOfUBU: telinternel,
-      TelPrivate: telPrivate,
-      Social: social,
-      CreateUserDate: serverTimestamp(),
-    })
+    const docRef = doc(db, "User", userID);
+    await updateDoc(docRef,{
+        Fname: fname,
+        Name: updateName,
+        Lastname: updateLastname,
+        Email: updateEmail,
+        Departments: updateDepartments,
+        TelOfUBU: updateTelOfUBU,
+        TelPrivate: updateTelPrivate,
+        Social: updateSocial,
+        CreateUserDate: serverTimestamp(),
+      })
       .then((doc) => {
         alert('บันทึกข้อมูลสำเร็จ');
         window.location.reload();
@@ -96,19 +106,18 @@ function EditUserForm(props) {
         console.log('ไม่สามารถเชื่อมต่อฐานข้อมูลได้');
         console.log(error);
       });
-  };*/
+  };
 
   
 
   return (
     <Fragment>
-      
       <Box sx={{ mt: 1, display: 'flex' }}>
         <Autocomplete
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
-            //setFname(newValue);
+            setFname(newValue);
           }}
           inputValue={inputValue}
           onInputChange={(event, newInputValue) => {
@@ -128,15 +137,15 @@ function EditUserForm(props) {
           sx={{ maxWidth: '70%', padding: 1 }}
           label={<Div>ชื่อ</Div>}
           id="name"
-          value={`${name}`}
+          placeholder={`${name}`}
           onChange={(e) => handleChangeName(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
           label={<Div>นามสกุล</Div>}
           id="lname"
-          value={`${lastname}`}
-          //onChange={(e) => handleChangeLastname(e.target.value)}
+          placeholder={`${lastname}`}
+          onChange={(e) => handleChangeLastname(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -145,15 +154,15 @@ function EditUserForm(props) {
           fullWidth
           label={<Div>แผนก / ฝ่าย</Div>}
           id="departments"
-          value={`${departments}`}
-          //onChange={(e) => handleChangeDepartments(e.target.value)}
+          placeholder={`${departments}`}
+          onChange={(e) => handleChangeDepartments(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
           label={<Div>เบอร์โทรภายใน</Div>}
           id="telOfUBU"
-          value={`${TelOfUBU}`}
-          //onChange={(e) => handleChangeTelIternal(e.target.value)}
+          placeholder={`${TelOfUBU}`}
+          onChange={(e) => handleChangeTelIternal(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -162,8 +171,8 @@ function EditUserForm(props) {
           fullWidth
           label={<Div>EMAIL</Div>}
           id="email"
-          value={`${email}`}
-          //onChange={(e) => handleChangeEmail(e.target.value)}
+          placeholder={`${email}`}
+          onChange={(e) => handleChangeEmail(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -172,8 +181,8 @@ function EditUserForm(props) {
           fullWidth
           label={<Div>โทรศัพท์ที่ติดต่อได้ (ไม่บังคับ)</Div>}
           id="telprivate"
-          value={`${TelPrivate}`}
-          //onChange={(e) => handleChangeTelPrivate(e.target.value)}
+          placeholder={`${TelPrivate}`}
+          onChange={(e) => handleChangeTelPrivate(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
@@ -181,22 +190,20 @@ function EditUserForm(props) {
           sx={{ maxWidth: 'auto', padding: 1 }}
           fullWidth
           label={
-            <Div>
-              ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)
-            </Div>
+            <Div>ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)</Div>
           }
           id="social"
-          value={`${Social}`}
-          //onChange={(e) => handleChangeSocial(e.target.value)}
+          placeholder={`${Social}`}
+          onChange={(e) => handleChangeSocial(e.target.value)}
         />
       </Box>
-      *
+
       <Box sx={{ mt: 1 }}>
         <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
           <Button
             sx={{ padding: 1 }}
             disabled={!error}
-            //onClick={handleSubmit}
+            onClick={handleSubmit}
             variant="outlined"
           >
             แก้ไขข้อมูล
