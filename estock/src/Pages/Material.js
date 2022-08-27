@@ -1,8 +1,15 @@
 import React from 'react'
+import Signin from '../Components/Signin';
+import ButtonAddBusiness from '../Components/ButtonAddBusiness'
 
-function Material() {
+
+function Material(props) {
+   const { db, user } = props.value;
+   if (user === null) {
+     return <Signin />;
+   }
   return (
-    <div>Material</div>
+    <div><ButtonAddBusiness value={{db:db,user:user}} /></div>
   )
 }
 

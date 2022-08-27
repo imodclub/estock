@@ -33,8 +33,14 @@ function App() {
       </React.Fragment>
       <Routes>
         <Route path="/" element={<Home user={user} />} excat></Route>
-        <Route path="usermanage" element={<UserManage value={{db:db, user:user}} />}></Route>
-        <Route path="material" element={<Material />}></Route>
+        <Route
+          path="usermanage"
+          element={<UserManage value={{ db: db, user: user }} />}
+        ></Route>
+        <Route
+          path="material"
+          element={<Material value={{ db: db, user: user }} />}
+        ></Route>
         <Route path="report" element={<Report />}></Route>
         <Route path="auth" element={<Auth user={user} />}></Route>
       </Routes>
