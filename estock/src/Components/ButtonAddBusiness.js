@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Signin from './Signin';
-import AddUserForm from './AddUserForm'
+import AddBusinessForm from './AddBusinessForm'
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -77,7 +77,7 @@ function ButtonAddUser(props) {
             <DialogContentText id="alert-dialog-slide-description">
               แบบฟอร์มเพิ่มข้อมูลร้านค้า และที่อยู่
             </DialogContentText>
-            {<AddUserForm db={db} />}
+            {<AddBusinessForm db={db} />}
           </DialogContent>
         </Dialog>
       </div>
