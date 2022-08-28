@@ -8,17 +8,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
-import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const theme = createTheme();
 
 function Navbar() {
 
-  const AuthLink = () => {
-    window.location.href = 'auth'
+  const SettingsLink = () => {
+    window.location.href = 'settings'
   }
   const HomeLink = () => {
     window.location.href = '/'
@@ -32,6 +30,7 @@ function Navbar() {
   const ReportLink = () => {
     window.location.href = 'report'
   }
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -51,14 +50,14 @@ function Navbar() {
                 sx={{ my: 2, color: 'primary', display: 'block', mr: '10px' }}
                 onClick={HomeLink}
               >
-              <Typography
-                variant="h6"
-                color="primary"
-                noWrap
-                sx={{ flexGrow: 1 }}
-              >
-                E-Stock
-              </Typography>
+                <Typography
+                  variant="h6"
+                  color="primary"
+                  noWrap
+                  sx={{ flexGrow: 1 }}
+                >
+                  E-Stock
+                </Typography>
               </Button>
             </Box>
             <Box
@@ -75,18 +74,7 @@ function Navbar() {
               >
                 <HomeOutlinedIcon sx={{ fontSize: 30 }} />
               </Button>
-              <Button
-                sx={{ my: 2, color: 'primary', display: 'block', mr: '10px' }}
-                onClick={UserManageLink}
-              >
-                <PersonOutlineOutlinedIcon sx={{ fontSize: 30 }} />
-              </Button>
-              <Button
-                sx={{ my: 2, color: 'primary', display: 'block', mr: '10px' }}
-                onClick={MaterialLink}
-              >
-                <LocalGroceryStoreOutlinedIcon sx={{ fontSize: 30 }} />
-              </Button>
+              
               <Button
                 sx={{ my: 2, color: 'primary', display: 'block', mr: '10px' }}
                 onClick={ReportLink}
@@ -109,9 +97,9 @@ function Navbar() {
                   display: 'block',
                   mr: '10px',
                 }}
-                onClick={AuthLink}
+                onClick={SettingsLink}
               >
-                <VpnKeyOutlinedIcon sx={{ fontSize: 30 }} />
+                <SettingsOutlinedIcon sx={{ fontSize: 30 }} />
               </Button>
             </Box>
           </Toolbar>

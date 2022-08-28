@@ -22,18 +22,33 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function ButtonAddUser(props) {
   const { db, user } = props.value;
   const [open, setOpen] = React.useState(false);
-  if (user === null) {
-    return <Signin />;
-  }
 
-   const handleClickOpen = () => {
-     setOpen(true);
-   };
+  //Run background check local user
+  const chkAuth = new Promise((resolve, reject) => {
+    if (user !== null) {
+      setTimeout(() => {
+        resolve('เข้าสู่ระบบสำเร็จ');
+      }, 1000);
+    }
+  });
+  chkAuth
+    .then((value) => {
+      console.log(value);
+    })
+    .catch((e) => {
+      console.log(e);
+      return <Signin />;
+    });
+  //End Run background check local user
 
-   const handleClose = () => {
-     setOpen(false);
-   };
-  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box
       sx={{ '& button': { m: 2 }, display: 'flex', justifyContent: 'flex-end' }}
@@ -57,12 +72,10 @@ function ButtonAddUser(props) {
           <DialogActions>
             <Button onClick={handleClose} endIcon={<CloseIcon />}></Button>
           </DialogActions>
-          <DialogTitle>{'เพิ่มข้อมูลสมาชิก'}</DialogTitle>
+          <DialogTitle>{'เพิ่มข้อมูลร้านค้า'}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              แบบฟอร์มเพิ่มข้อมูลสมาชิก หรือผู้เบิกวัสดุ หรือเบิกสินค้า
-              ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
-              เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
+              แบบฟอร์มเพิ่มข้อมูลร้านค้า และที่อยู่
             </DialogContentText>
             {<AddUserForm db={db} />}
           </DialogContent>

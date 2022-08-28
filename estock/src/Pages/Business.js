@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react'
-import ListUsers from '../Components/ListUserPageUser'
-import ButtonAddUser from '../Components/ButtonAddUser'
-import Signin from '../Components/Signin'
-import MainSidebar from '../Components/Sidebar'
-import { Box,Grid } from '@mui/material'
+import React from 'react'
+import Signin from '../Components/Signin';
+import ButtonAddBusiness from '../Components/ButtonAddBusiness'
+import MainSidebar from '../Components/Sidebar';
+import { Box, Grid } from '@mui/material';
 
 
-function UserManage(props) {
+
+function Business(props) {
   const { db, user } = props.value;
 
   //Run background check local user
   const chkAuth = new Promise((resolve, reject) => {
     if (user !== null) {
       setTimeout(() => {
-        resolve('กำลังเข้าสู่ระบบ');
+        resolve('เข้าสู่ระบบสำเร็จ');
       }, 1000);
     }
   });
@@ -29,17 +29,16 @@ function UserManage(props) {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', width: '100%' }}>
+        <Box sx={{ display: 'flex', width: '100%' }}>
         <Grid container item xs={4}>
           <MainSidebar />
         </Grid>
         <Grid item xs={12}>
-          <ButtonAddUser value={{ db: db, user: user }} />
-          <ListUsers db={db} />
+        <ButtonAddBusiness value={{ db: db, user: user }} />
         </Grid>
       </Box>
     </div>
   );
 }
 
-export default UserManage
+export default Business

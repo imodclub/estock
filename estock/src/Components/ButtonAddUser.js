@@ -11,6 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Signin from './Signin';
 import AddUserForm from './AddUserForm'
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -22,18 +23,35 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function ButtonAddUser(props) {
   const { db, user } = props.value;
   const [open, setOpen] = React.useState(false);
-  if (user === null) {
-    return <Signin />;
-  }
 
-   const handleClickOpen = () => {
-     setOpen(true);
-   };
+  //Run background check local user
+  const chkAuth = new Promise((resolve, reject) => {
+    if (user !== null) {
+      setTimeout(() => {
+        resolve('เข้าสู่ระบบสำเร็จ');
+        
+      }, 1000);
+    }
+  });
+  chkAuth
+    .then((value) => {
+      console.log(value);
+      return <CircularProgress />;
+    })
+    .catch((e) => {
+      console.log(e);
+      return <Signin />;
+    });
+  //End Run background check local user
 
-   const handleClose = () => {
-     setOpen(false);
-   };
-  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box
       sx={{ '& button': { m: 2 }, display: 'flex', justifyContent: 'flex-end' }}
@@ -55,7 +73,7 @@ function ButtonAddUser(props) {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogActions>
-          <Button onClick={handleClose} endIcon={<CloseIcon />}></Button>
+            <Button onClick={handleClose} endIcon={<CloseIcon />}></Button>
           </DialogActions>
           <DialogTitle>{'เพิ่มข้อมูลสมาชิก'}</DialogTitle>
           <DialogContent>

@@ -5,9 +5,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import Home from './Pages/Home'
 import UserManage from './Pages/UserManage'
-import Material from './Pages/Material'
+import Business from './Pages/Business'
 import Report from './Pages/Report'
+import Settings from './Pages/Settings';
 import Auth from './Pages/Auth'
+import Signin from './Components/Signin';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
     });
   }, []);
 
+
+
   return (
     <BrowserRouter>
       <React.Fragment>
@@ -38,10 +42,14 @@ function App() {
           element={<UserManage value={{ db: db, user: user }} />}
         ></Route>
         <Route
-          path="material"
-          element={<Material value={{ db: db, user: user }} />}
+          path="business"
+          element={<Business value={{ db: db, user: user }} />}
         ></Route>
         <Route path="report" element={<Report />}></Route>
+        <Route
+          path="settings"
+          element={<Settings value={{ db: db, user: user }} />}
+        ></Route>
         <Route path="auth" element={<Auth user={user} />}></Route>
       </Routes>
     </BrowserRouter>
