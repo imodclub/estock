@@ -11,29 +11,20 @@ const Div = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-const options = [
-  'คำนำหน้า',
-  'นาย',
-  'นางสาว',
-  'นาง',
-  'ศ.',
-  'ศ.ดร.',
-  'รศ.',
-  'รศ.ดร.',
-  'ผศ.',
-  'ผศ.ดร.',
-  'ดร.',
-];
 
 function AddUserForm(props) {
   const db = props.db;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = useState('');
   const [businessName, setBusinessName] = useState(null);
   const [businessAddress, setBusinessAddress] = useState(null);
-  const [businessEmail, setBusinessEmail] = useState(null);
+  const [subdistrict, setSubdistrict] = useState(null);
+  const [district, setDistrict] = useState(null);
+  const [province, setProvince] = useState(null);
+  const [zipcode, setZipcode] = useState(null);
+  const [telephone, setTelephone] = useState(null);
+
 
   //ref
   const inputTextName = useRef(null);
@@ -44,15 +35,15 @@ function AddUserForm(props) {
   const inputTextTelPrivate = useRef(null);
   const inputTextSocial = useRef(null);
 
-  /*
-  const handleChangeName=(e)=>{setName(e)}
-  const handleChangeLastname=(e)=>{setLastname(e)}
-  const handleChangeEmail = (e) => { setEmail(e) }
-  const handleChangeDepartments = (e) => { setDepartments(e) }
-  const handleChangeTelIternal = (e) => { setTelInternal(e)}
-  const handleChangeTelPrivate= (e) => {setTelPrivate(e)};
-  const handleChangeSocial = (e) => { setSocial(e) };
-  */
+  
+  const handleChangeBusinessName=(e)=>{setBusinessName(e)}
+  const handleChangeBusinessAddress=(e)=>{setBusinessAddress(e)}
+  const handleChangeSubdistrict = (e) => { setSubdistrict(e) }
+  const handleChangeDistrict = (e) => { setDistrict(e) }
+  const handleChangeProvince = (e) => { setProvince(e)}
+  const handleChangeZipcode= (e) => {setZipcode(e)};
+  const  handleChangeTelephone = (e) => { setTelephone(e) };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,87 +81,66 @@ function AddUserForm(props) {
   return (
     <Fragment>
       <Box sx={{ mt: 1, display: 'flex' }}>
-        <Autocomplete
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-            //setFname(newValue);
-          }}
-          inputValue={inputValue}
-          onInputChange={(event, newInputValue) => {
-            setInputValue(newInputValue);
-          }}
-          selectOnFocus
-          id="fnamelist"
-          options={options}
-          sx={{ width: 200, padding: 1 }}
-          renderInput={(params) => (
-            <TextField {...params} label="คำนำหน้า" id="fname" />
-          )}
-        />
-      </Box>
-      <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
-          label={<Div>ชื่อ</Div>}
-          id="name"
+          fullWidth
+          label={<Div>ชื่อร้านค้า</Div>}
+          id="businessname"
           inputRef={inputTextName}
-          //onChange={(e) => handleChangeName(e.target.value)}
+          onChange={(e) => handleChangeBusinessName(e.target.value)}
         />
+      </Box>
+      <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '70%', padding: 1 }}
-          label={<Div>นามสกุล</Div>}
-          id="lname"
+          label={<Div>ที่อยู่</Div>}
+          id="businessAddress"
           inputRef={inputTextLastname}
-          //onChange={(e) => handleChangeLastname(e.target.value)}
+          onChange={(e) => handleChangeBusinessAddress(e.target.value)}
         />
-      </Box>
-      <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
-          label={<Div>หน่วยงาน/ภาควิชา</Div>}
-          id="departments"
+          label={<Div>แขวง / ตำบล</Div>}
+          id="subdistrict"
           inputRef={inputTextDepartments}
-          //onChange={(e) => handleChangeDepartments(e.target.value)}
+          onChange={(e) => handleChangeSubdistrict(e.target.value)}
         />
         <TextField
           sx={{ maxWidth: '55%', padding: 1 }}
-          label={<Div>โทรศัพท์ภายใน</Div>}
-          id="telinternel"
+          label={<Div>อำเภอ</Div>}
+          id="district"
           inputRef={inputTextTelInternal}
-          //onChange={(e) => handleChangeTelIternal(e.target.value)}
+          onChange={(e) => handleChangeDistrict(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '100%', padding: 1 }}
           fullWidth
-          label={<Div>Email</Div>}
-          id="email"
+          label={<Div>จังหวัด</Div>}
+          id="province"
           inputRef={inputTextEmail}
-          //onChange={(e) => handleChangeEmail(e.target.value)}
+          onChange={(e) => handleChangeProvince(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: '100%', padding: 1 }}
           fullWidth
-          label={<Div>โทรศัพท์ที่ติดต่อได้ (ไม่บังคับ)</Div>}
-          id="telprivate"
+          label={<Div>รหัสไปรษณีย์</Div>}
+          id="zipcode"
           inputRef={inputTextTelPrivate}
-          //onChange={(e) => handleChangeTelPrivate(e.target.value)}
+          onChange={(e) => handleChangeZipcode(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1, display: 'flex' }}>
         <TextField
           sx={{ maxWidth: 'auto', padding: 1 }}
           fullWidth
-          label={
-            <Div>ช่องทางติดต่ออื่นๆ เช่น โซเซียลมีเดีย Line (ไม่บังคับ)</Div>
-          }
-          id="social"
+          label={<Div>เบอร์โทร</Div>}
+          id="telephone"
           inputRef={inputTextSocial}
-          //onChange={(e) => handleChangeSocial(e.target.value)}
+          onChange={(e) => handleChangeTelephone(e.target.value)}
         />
       </Box>
       <Box sx={{ mt: 1 }}>
