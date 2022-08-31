@@ -10,7 +10,6 @@ import Report from './Pages/Report'
 import Settings from './Pages/Settings';
 import Auth from './Pages/Auth'
 import Signin from './Components/Signin';
-import TestReadeJSON from './Components/TestReadeJSON';
 
 
 function App() {
@@ -52,7 +51,6 @@ function App() {
           element={<Settings value={{ db: db, user: user }} />}
         ></Route>
         <Route path="auth" element={<Auth user={user} />}></Route>
-        <Route path="readjson" element={<TestReadeJSON />}></Route>
       </Routes>
     </BrowserRouter>
   );
