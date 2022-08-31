@@ -166,12 +166,12 @@ const ListUsers = (props) => {
             <Table sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">คำนำหน้า</TableCell>
-                  <TableCell align="left">ชื่อ</TableCell>
-                  <TableCell align="left">นามสกุล</TableCell>
-                  <TableCell align="left">Email</TableCell>
-                  <TableCell align="left">ภาควิชา</TableCell>
-                  <TableCell align="left"></TableCell>
+                  <TableCell colSpan={6} align="left">คำนำหน้า</TableCell>
+                  <TableCell colSpan={6} align="left">ชื่อ</TableCell>
+                  <TableCell colSpan={6} align="left">นามสกุล</TableCell>
+                  <TableCell colSpan={6} align="left">Email</TableCell>
+                  <TableCell colSpan={6} align="left">ภาควิชา</TableCell>
+                  <TableCell colSpan={6} align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -180,12 +180,12 @@ const ListUsers = (props) => {
                     key={row.key}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell align="left">{row.Fname}</TableCell>
-                    <TableCell align="left">{row.Name}</TableCell>
-                    <TableCell align="left">{row.Lastname}</TableCell>
-                    <TableCell align="left">{row.Email}</TableCell>
-                    <TableCell align="left">{row.Departments}</TableCell>
-                    <TableCell align="left">
+                    <TableCell colSpan={6} align="left">{row.Fname}</TableCell>
+                    <TableCell colSpan={6} align="left">{row.Name}</TableCell>
+                    <TableCell colSpan={6} align="left">{row.Lastname}</TableCell>
+                    <TableCell colSpan={6} align="left">{row.Email}</TableCell>
+                    <TableCell colSpan={6} align="left">{row.Departments}</TableCell>
+                    <TableCell colSpan={6} align="left">
                       <Stack direction="row" spacing={2}>
                         <Button
                           variant="outlined"

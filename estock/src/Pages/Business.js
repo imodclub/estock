@@ -1,6 +1,7 @@
 import React from 'react'
 import Signin from '../Components/Signin';
 import ButtonAddBusiness from '../Components/ButtonAddBusiness'
+import ListBusiness from '../Components/ListBusiness';
 import MainSidebar from '../Components/Sidebar';
 import { Box, Grid } from '@mui/material';
 
@@ -30,11 +31,12 @@ function Business(props) {
   return (
     <div>
         <Box sx={{ display: 'flex', width: '100%' }}>
-        <Grid container item xs={4}>
+        <Grid container item xs={3}>
           <MainSidebar />
         </Grid>
-        <Grid item xs={12}>
-        <ButtonAddBusiness value={{ db: db, user: user }} />
+        <Grid item xs={14}>
+          <ButtonAddBusiness value={{ db: db, user: user }} />
+          <ListBusiness db={db} />
         </Grid>
       </Box>
     </div>

@@ -30,10 +30,10 @@ function UserManage(props) {
   return (
     <div>
       <Box sx={{ display: 'flex', width: '100%' }}>
-        <Grid container item xs={4}>
+        <Grid container item xs={3}>
           <MainSidebar />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={14}>
           <ButtonAddUser value={{ db: db, user: user }} />
           <ListUsers db={db} />
         </Grid>
