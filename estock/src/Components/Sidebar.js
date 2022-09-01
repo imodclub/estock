@@ -15,6 +15,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
+
 import UserManage from '../Pages/UserManage';
 
 
@@ -59,6 +61,9 @@ const UserManageLink = () => {
 const BusinessLink = () => {
   window.location.href = 'business';
 };
+const MaterialLink = () => {
+  window.location.href = 'material';
+};
 
 function Sidebar() {
   const [open, setOpen] = React.useState(true);
@@ -97,6 +102,12 @@ function Sidebar() {
                 <StorefrontOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="จัดการข้อมูลร้านค้า" />
+            </ListItemButton>
+            <ListItemButton onClick={MaterialLink}>
+              <ListItemIcon>
+                <ShoppingCartCheckoutOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="จัดการข้อมูลวัสดุ" />
             </ListItemButton>
           </List>
         </Drawer>

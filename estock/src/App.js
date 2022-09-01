@@ -10,6 +10,7 @@ import Report from './Pages/Report'
 import Settings from './Pages/Settings';
 import Auth from './Pages/Auth'
 import Signin from './Components/Signin';
+import Material from './Pages/Material';
 
 
 function App() {
@@ -44,6 +45,10 @@ function App() {
         <Route
           path="business"
           element={<Business value={{ db: db, user: user }} />}
+        ></Route>
+        <Route
+          path="material"
+          element={<Material value={{ db: db, user: user }} />}
         ></Route>
         <Route path="report" element={<Report />}></Route>
         <Route
