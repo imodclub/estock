@@ -124,7 +124,7 @@ const ListBusiness = (props) => {
     if (dataID) {
       console.log('data id คือ ', dataID);
       setLoading(false);
-      await deleteDoc(doc(db, 'User', dataID));
+      await deleteDoc(doc(db, 'Business', dataID));
       setTimeout(() => {
         setLoading(true);
       }, 3000);
@@ -216,7 +216,7 @@ const ListBusiness = (props) => {
                     {row.BusinessName}
                   </TableCell>
                   <TableCell colSpan={6} align="left">
-                    {row.BusinessAddress} {row.Soi} {row.Road}
+                    {row.BusinessAddress}  {row.Soi}  {row.Road}
                   </TableCell>
                   <TableCell colSpan={6} align="left">
                     {row.Subdistrict}
