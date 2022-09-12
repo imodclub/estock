@@ -1,0 +1,170 @@
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { TextField, Box,Button } from '@mui/material'
+import { styled } from '@mui/material/styles';
+import Autocomplete from '@mui/material/Autocomplete';
+import Signin from './Signin';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(1),
+}));
+
+const options = [
+'คำนำหน้า',
+  'นาย',
+  'นางสาว',
+  'นาง',
+  'ศ.',
+  'ศ.ดร.',
+  'รศ.',
+  'รศ.ดร.',
+  'ผศ.',
+  'ผศ.ดร.',
+  'ดร.',
+];
+
+function AddUserForm(props) {
+  const db = props.db;
+  const [loading, setLoading] = useState(false)
+  const [error,setError] = useState(false)
+  const [value, setValue] = useState(options[0]);
+  const [inputValue, setInputValue] = useState('');
+  const [fname, setFname]=useState(null)
+  const [name, setName] = useState(null);
+  const [lastname, setLastname]=useState(null)
+  const [email, setEmail]=useState(null)
+  const [departments, setDepartments]=useState(null)
+  const [telinternel, setTelInternal]=useState(null)
+  const [telPrivate, setTelPrivate]=useState(null)
+  const [social, setSocial] = useState(null);
+
+  //ref
+  const inputTextName = useRef(null);
+  const inputTextLastname = useRef(null);
+  const inputTextEmail = useRef(null);
+  const inputTextDepartments = useRef(null);
+  const inputTextTelInternal = useRef(null);
+  const inputTextTelPrivate = useRef(null);
+  const inputTextSocial = useRef(null);
+
+  useEffect(() => {
+    const validator =
+      name?.trim().length > 0 &&
+      lastname?.trim().length > 0 &&
+      email?.trim().length > 0 &&
+      departments?.trim().length > 0 &&
+      telinternel;
+    if (validator) {
+      setError(true)
+    } else {
+      setError(false)
+    }
+  },
+  [fname,name, lastname,email,departments,telinternel])
+    
+  const handleChangeName=(e)=>{setName(e)}
+  const handleChangeLastname=(e)=>{setLastname(e)}
+  const handleChangeEmail = (e) => { setEmail(e) }
+  const handleChangeDepartments = (e) => { setDepartments(e) }
+  const handleChangeTelIternal = (e) => { setTelInternal(e)}
+  const handleChangeTelPrivate= (e) => {setTelPrivate(e)};
+  const handleChangeSocial = (e) => { setSocial(e) };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const docRef = await addDoc(collection(db, "User"), {
+      Fname: fname,
+      Name: name,
+      Lastname: lastname,
+      Email: email,
+      Departments: departments,
+      TelOfUBU: telinternel,
+      TelPrivate: telPrivate,
+      Social: social,
+      CreateUserDate:serverTimestamp()
+    }).then((doc) => {
+      alert('บันทึกข้อมูลสำเร็จ')
+      window.location.reload();
+    }).catch((error)=>{
+      console.log("ไม่สามารถเชื่อมต่อฐานข้อมูลได้");
+      console.log(error)
+    })
+    
+  }
+
+  const handleClear = (e) => {
+    e.preventDefault();
+    inputTextName.current.value="";
+    inputTextLastname.current.value="";
+    inputTextEmail.current.value = "";
+    inputTextDepartments.current.value = '';
+    inputTextTelInternal.current.value="";
+    inputTextTelPrivate.current.value="";
+    inputTextSocial.current.value="";
+  }
+
+    return (
+      <Fragment>
+        
+        <Box sx={{ mt: 1, display: 'flex' }}>
+          <TextField
+            sx={{ maxWidth: '70%', padding: 1 }}
+            label={<Div>ชื่อวัสดุ</Div>}
+            id="name"
+            inputRef={inputTextName}
+            onChange={(e) => handleChangeName(e.target.value)}
+          />
+          <TextField
+            sx={{ maxWidth: '70%', padding: 1 }}
+            label={<Div>ประเภท</Div>}
+            id="lname"
+            inputRef={inputTextLastname}
+            onChange={(e) => handleChangeLastname(e.target.value)}
+          />
+        </Box>
+        <Box sx={{ mt: 1, display: 'flex' }}>
+          <TextField
+            sx={{ maxWidth: '55%', padding: 1 }}
+            label={<Div>หน่วยบรรจุ</Div>}
+            id="departments"
+            inputRef={inputTextDepartments}
+            onChange={(e) => handleChangeDepartments(e.target.value)}
+          />
+          <TextField
+            sx={{ maxWidth: '55%', padding: 1 }}
+            label={<Div>จำนวนวัสดุต่อหน่วยบรรจุ</Div>}
+            id="telinternel"
+            inputRef={inputTextTelInternal}
+            onChange={(e) => handleChangeTelIternal(e.target.value)}
+          />
+        </Box>
+       
+        <Box sx={{ mt: 1 }}>
+          <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
+            <Button
+              sx={{ padding: 1 }}
+              disabled={!error}
+              onClick={handleSubmit}
+              variant="outlined"
+            >
+              เพิ่มข้อมูล
+            </Button>
+          </Box>
+          <Box component="div" sx={{ display: 'inline', p: 1, m: 1 }}>
+            <Button
+              variant="outlined"
+              sx={{ padding: 1 }}
+              color="error"
+              onClick={handleClear}
+            >
+              Clear form
+            </Button>
+          </Box>
+        </Box>
+      </Fragment>
+    );
+}
+
+export default AddUserForm

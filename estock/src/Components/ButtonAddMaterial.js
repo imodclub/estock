@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Signin from './Signin';
-import AddUserForm from './AddUserForm';
+import AddMaterialForm from './AddMaterialForm';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -71,14 +71,12 @@ function ButtonAddMaterial(props) {
           <DialogActions>
             <Button onClick={handleClose} endIcon={<CloseIcon />}></Button>
           </DialogActions>
-          <DialogTitle>{'เพิ่มข้อมูลสมาชิก'}</DialogTitle>
+          <DialogTitle>{'เพิ่มข้อมูลวัสดุ'}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              แบบฟอร์มเพิ่มข้อมูลสมาชิก หรือผู้เบิกวัสดุ หรือเบิกสินค้า
-              ทางหน่วยงานมีความจำเป็นต้องจัดเก็บข้อมูล
-              เพื่อนำไปใช้สำหรับงานเบิกวัสดุ
+              แบบฟอร์มเพิ่มข้อมูลวัสดุ กรุณากรอกรายละเอียด
             </DialogContentText>
-            {<AddUserForm db={db} />}
+            {<AddMaterialForm db={db} />}
           </DialogContent>
         </Dialog>
       </div>
